@@ -1,21 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Login from './pages/Login';
+import Login from './Pages/LoginPage/Login';
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import SignUp from './Pages/SignUpPage/SignUp';
+import NavigationNonAuth from './Components/NavigationNonAuth'
 
-function App() {
-  const handleLogin = (email: string, password: string) => {
-    if (email === 'test@example.com' && password === 'password') {
-      alert('Login successful');
-    } else {
-      alert('Invalid credentials');
-    }
-  };
+const App: React.FC = () => {
   return (
-    <div className="App">
-     <Login onLogin={handleLogin}></Login>
-    </div>
+    <Router>
+      <NavigationNonAuth />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
