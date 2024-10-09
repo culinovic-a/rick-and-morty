@@ -1,7 +1,7 @@
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
-const NavigationNonAuth: React.FC = () => {
+const Navigation: React.FC = () => {
     const location = useLocation();
 
     return (
@@ -29,4 +29,4 @@ const NavigationNonAuth: React.FC = () => {
     );
 };
 
-export default NavigationNonAuth;
+export default Navigation;

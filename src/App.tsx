@@ -3,12 +3,12 @@ import './App.css';
 import Login from './Pages/LoginPage/Login';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import SignUp from './Pages/SignUpPage/SignUp';
-import NavigationNonAuth from './Components/NavigationNonAuth'
+import Navigation from './Components/Navigation'
 
 const App: React.FC = () => {
   return (
     <Router>
-      <NavigationNonAuth />
+      <Navigation />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
