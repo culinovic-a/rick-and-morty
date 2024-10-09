@@ -1,15 +1,24 @@
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
+import { auth } from '../../firebase/firebaseConfig';
 
 const SignUp: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
   
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       console.log('Email:', email);
       console.log('Password:', password);
-      console.log('Confirm Password:', confirmPassword);
+  
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        const token = await user.getIdToken();
+        localStorage.setItem('userToken', token);
+      } catch (error) {
+        console.error('Error creating user:', error);
+      }
     };
 
     return (
@@ -55,25 +64,6 @@ const SignUp: React.FC = () => {
                       required
                       autoComplete="current-password"
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div>
-                    <label htmlFor="confirm-password" className="block text-sm font-medium leading-6 text-gray-900">
-                      Confirm Password
-                    </label>
-                  </div>
-                  <div className="mt-2">
-                    <input
-                      id="confirm-password"
-                      name="confirm-password"
-                      type="confirm-password"
-                      required
-                      autoComplete="confirm-password"
-                      value={confirmPassword}
                       onChange={(e) => setPassword(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
