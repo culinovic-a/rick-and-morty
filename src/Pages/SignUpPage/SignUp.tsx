@@ -15,9 +15,10 @@ const SignUp: React.FC = () => {
   
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        console.log(userCredential)
         const user = userCredential.user;
         const token = await user.getIdToken();
-        navigate('/characters'); 
+        navigate('/characters');
         localStorage.setItem('userToken', token);
       } catch (error) {
         console.error('Error creating user:', error);

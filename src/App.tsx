@@ -5,18 +5,21 @@ import { BrowserRouter as Router, Route, Link, Routes, Navigate } from 'react-ro
 import SignUp from './Pages/SignUpPage/SignUp';
 import Navigation from './Components/Navigation'
 import Characters from './Pages/CharactersPage/Characters';
+import { AuthProvider } from './contexts/AuthContext';
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/characters" element={<Characters />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/characters" element={<Characters />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 };
 

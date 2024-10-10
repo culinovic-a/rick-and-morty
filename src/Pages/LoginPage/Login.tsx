@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useAuth } from '../../contexts/AuthContext';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase/firebaseConfig';
 
 interface LoginProps {
   onLogin: (email: string, password: string) => void;
@@ -9,11 +12,23 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('Email:', email);
     console.log('Password:', password);
+    try {
+      const userLogin = await signInWithEmailAndPassword(auth, email, password);
+      console.log('User logged in successfully', userLogin)
+      const user = userLogin.user;
+      login();
+      const token = await user.getIdToken();
+      navigate('/characters');
+      localStorage.setItem('userToken', token);
+    } catch (error) {
+      console.error('Error login user:', error);
+    }
   };
 
   return (
