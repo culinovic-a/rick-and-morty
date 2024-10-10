@@ -4,7 +4,11 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Navigation: React.FC = () => {
     const location = useLocation();
-    const { isAuthenticated, login, logout } = useAuth();
+    const { isAuthenticated, logout } = useAuth();
+
+    const handleLogout = () => {
+        logout();
+    };
 
     return (
         <nav className="bg-gray-800 p-4">
@@ -37,6 +41,14 @@ const Navigation: React.FC = () => {
                                     }`}
                             >
                                 Characters
+                            </Link>
+                            <Link
+                                to="/login"
+                                onClick={handleLogout}
+                                className={`text-white px-3 py-2 rounded transition duration-200 ${location.pathname === '/log-out' ? 'bg-gray-700' : 'hover:bg-gray-700'
+                                    }`}
+                            >
+                                Logout
                             </Link>
                         </>
                     )}

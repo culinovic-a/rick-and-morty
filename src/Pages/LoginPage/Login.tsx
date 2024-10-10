@@ -22,8 +22,8 @@ const Login: React.FC = () => {
       const userLogin = await signInWithEmailAndPassword(auth, email, password);
       console.log('User logged in successfully', userLogin)
       const user = userLogin.user;
-      login();
       const token = await user.getIdToken();
+      login(token);
       navigate('/characters');
       localStorage.setItem('userToken', token);
     } catch (error) {
