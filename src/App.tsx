@@ -7,6 +7,7 @@ import Navigation from './Components/Navigation'
 import Characters from './Pages/CharactersPage/Characters';
 import { AuthProvider } from './contexts/AuthContext';
 import SingleCharacter from './Pages/SingleCharacterPage/SingleCharacter';
+import SingleLocation from './Pages/SingleLocationPage/SingleLocation';
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/characters" element={<Characters />} />
           <Route path="/single-character/:id" element={<SingleCharacter />} />
+          <Route path="/single-location/:id" element={<SingleLocation />} />
         </Routes>
       </Router>
     </AuthProvider>

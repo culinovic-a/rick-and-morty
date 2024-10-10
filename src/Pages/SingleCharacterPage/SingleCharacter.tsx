@@ -9,8 +9,8 @@ const SingleCharacter: React.FC = () => {
     const navigate = useNavigate();
 
     const handleCharacterLocation = (locationUrl: string | undefined) => {
-        // const id: string = locationUrl?.split("/").pop() || "";
-        // navigate(`/single-location/${id}`);
+        const id: string = locationUrl?.split("/").pop() || "";
+        navigate(`/single-location/${id}`);
     };
 
     const fetchSingleCharacter = async () => {
