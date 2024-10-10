@@ -1,10 +1,12 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../../firebase/firebaseConfig';
+import { useNavigate } from 'react-router';
 
 const SignUp: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
   
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -15,6 +17,7 @@ const SignUp: React.FC = () => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         const token = await user.getIdToken();
+        navigate('/characters'); 
         localStorage.setItem('userToken', token);
       } catch (error) {
         console.error('Error creating user:', error);
