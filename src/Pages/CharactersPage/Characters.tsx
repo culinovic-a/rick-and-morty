@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import { Character } from '../../interfaces/intefaces';
+import { Character } from '../../interfaces/interfaces';
 import { extractEpisodeNumber } from '../../utils/extractEpisodeNumber';
 
 interface ApiResponse {

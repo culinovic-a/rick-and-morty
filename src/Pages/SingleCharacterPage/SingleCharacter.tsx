@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Character } from '../../interfaces/intefaces';
+import { Character } from '../../interfaces/interfaces';
 import { extractEpisodeNumber } from '../../utils/extractEpisodeNumber';
 
 const SingleCharacter: React.FC = () => {
