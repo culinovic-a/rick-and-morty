@@ -96,6 +96,10 @@ const Characters: React.FC = () => {
         return <div>Error: {error}</div>;
     }
 
+    const extractEpisodeNumber = (episodeUrl: string): string => {
+        return episodeUrl.split('/').pop() || '';
+    };
+
     return (
         <div>
             <div className="max-w-2xl mx-auto text-center py-8">
@@ -108,8 +112,20 @@ const Characters: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {characters.map((character) => (
                         <div key={character.id} className="bg-white border border-gray-300 rounded-lg shadow p-4">
-                            <h2>{character.name}</h2>
+                            <h2 className="mb-1 text-xl font-medium text-gray-900">{character.name}</h2> <span> {character.gender}, {character.status}, {character.species}</span>
                             <img src={character.image} alt={character.name} />
+                            <div className="mt-2">
+                            <h3>Episodes:</h3>
+                            {character.episode.map((episodeUrl, index) => (
+                                <span 
+                                    key={index} 
+                                    className="inline-block text-gray-600 mr-1"
+                                >
+                                    {extractEpisodeNumber(episodeUrl)}
+                                    {index !== character.episode.length - 1 && ','}
+                                </span>
+                            ))}
+                        </div>
                         </div>
                     ))}
                 </div>
