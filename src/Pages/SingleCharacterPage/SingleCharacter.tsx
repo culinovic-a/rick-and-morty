@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Character } from '../../interfaces/intefaces';
+import { extractEpisodeNumber } from '../../utils/extractEpisodeNumber';
 
 const SingleCharacter: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -55,12 +56,27 @@ const SingleCharacter: React.FC = () => {
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Status</dt>
-                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{character?.status}</dd>
+                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">     {character?.status}
+                        </dd>
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Origin</dt>
                         <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                             {character?.origin.name}
+                        </dd>
+                    </div>
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        <dt className="text-sm font-medium leading-6 text-gray-900">Episodes</dt>
+                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                            {character?.episode.map((episodeUrl, index) => (
+                                <span
+                                    key={index}
+                                    className="inline-block text-gray-600 mr-1"
+                                >
+                                    {extractEpisodeNumber(episodeUrl)}
+                                    {index !== character.episode.length - 1 && ','}
+                                </span>
+                            ))}
                         </dd>
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">

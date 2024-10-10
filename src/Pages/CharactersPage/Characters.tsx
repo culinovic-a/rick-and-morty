@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { Character } from '../../interfaces/intefaces';
+import { extractEpisodeNumber } from '../../utils/extractEpisodeNumber';
 
 interface ApiResponse {
     info: Info,
@@ -81,10 +82,6 @@ const Characters: React.FC = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
-
-    const extractEpisodeNumber = (episodeUrl: string): string => {
-        return episodeUrl.split('/').pop() || '';
-    };
 
     return (
         <div>
