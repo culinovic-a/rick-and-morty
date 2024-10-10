@@ -6,6 +6,7 @@ import SignUp from './Pages/SignUpPage/SignUp';
 import Navigation from './Components/Navigation'
 import Characters from './Pages/CharactersPage/Characters';
 import { AuthProvider } from './contexts/AuthContext';
+import SingleCharacter from './Pages/SingleCharacterPage/SingleCharacter';
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/characters" element={<Characters />} />
+          <Route path="/single-character/:id" element={<SingleCharacter />} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import { Character } from '../../interfaces/intefaces';
 
 interface ApiResponse {
     info: Info,
@@ -12,27 +13,6 @@ interface Info {
     next: string | null;
     prev: string | null;
     pages: number;
-}
-
-interface Character {
-    id: number;
-    name: string;
-    status: string;
-    species: string;
-    type: string;
-    gender: string;
-    origin: {
-        name: string;
-        url: string;
-    },
-    location: {
-        name: string;
-        url: string;
-    },
-    image: string;
-    episode: string[],
-    url: string;
-    created: string;
 }
 
 const Characters: React.FC = () => {
