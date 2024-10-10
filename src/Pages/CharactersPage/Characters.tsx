@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 interface ApiResponse {
     info: Info,
@@ -41,6 +42,11 @@ const Characters: React.FC = () => {
     const [info, setInfo] = useState<Info | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [hasMore, setHasMore] = useState<boolean>(true);
+    const navigate = useNavigate();
+
+    const handleCharacterClick = (characterId: number) => {
+        navigate(`/single-character/${characterId}`);
+    };
 
     const fetchCharacters = async (page: number) => {
         if (loading) return;
@@ -111,21 +117,21 @@ const Characters: React.FC = () => {
                 />
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {characters.map((character) => (
-                        <div key={character.id} className="bg-white border border-gray-300 rounded-lg shadow p-4">
+                        <div onClick={() => handleCharacterClick(character.id)} key={character.id} className="bg-white border border-gray-300 rounded-lg shadow p-4">
                             <h2 className="mb-1 text-xl font-medium text-gray-900">{character.name}</h2> <span> {character.gender}, {character.status}, {character.species}</span>
                             <img src={character.image} alt={character.name} />
                             <div className="mt-2">
-                            <h3>Episodes:</h3>
-                            {character.episode.map((episodeUrl, index) => (
-                                <span 
-                                    key={index} 
-                                    className="inline-block text-gray-600 mr-1"
-                                >
-                                    {extractEpisodeNumber(episodeUrl)}
-                                    {index !== character.episode.length - 1 && ','}
-                                </span>
-                            ))}
-                        </div>
+                                <h3>Episodes:</h3>
+                                {character.episode.map((episodeUrl, index) => (
+                                    <span
+                                        key={index}
+                                        className="inline-block text-gray-600 mr-1"
+                                    >
+                                        {extractEpisodeNumber(episodeUrl)}
+                                        {index !== character.episode.length - 1 && ','}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
                     ))}
                 </div>

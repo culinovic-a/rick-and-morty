@@ -3,6 +3,7 @@ import App from "../App";
 import Login from "../Pages/LoginPage/Login";
 import SignUp from "../Pages/SignUpPage/SignUp";
 import Characters from "../Pages/CharactersPage/Characters";
+import SingleCharacter from "../Pages/SingleCharacterPage/SingleCharacter";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
             {
                 path: 'characters',
                 element: <Characters />
+            },
+            {
+                path: 'single-character/:id',
+                element: <SingleCharacter />
             },
         ]
     }
