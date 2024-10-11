@@ -8,6 +8,7 @@ import Characters from './Pages/CharactersPage/Characters';
 import { AuthProvider } from './contexts/AuthContext';
 import SingleCharacter from './Pages/SingleCharacterPage/SingleCharacter';
 import SingleLocation from './Pages/SingleLocationPage/SingleLocation';
+import SingleEpisode from './Pages/SingleEpisodePage/SingleEpisode';
 
 const App: React.FC = () => {
   return (
@@ -19,8 +20,9 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/characters" element={<Characters />} />
-          <Route path="/single-character/:id" element={<SingleCharacter />} />
-          <Route path="/single-location/:id" element={<SingleLocation />} />
+          <Route path="/characters/:id" element={<SingleCharacter />} />
+          <Route path="/location/:id" element={<SingleLocation />} />
+          <Route path="/episode/:id" element={<SingleEpisode />} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -11,8 +11,12 @@ const SingleCharacter: React.FC = () => {
 
     const handleCharacterLocation = (locationUrl: string | undefined) => {
         const id: string = locationUrl?.split("/").pop() || "";
-        navigate(`/single-location/${id}`);
+        navigate(`/location/${id}`);
     };
+
+    const handleSingleEpisode = (episodeId: string) => {
+        navigate(`/episode/${episodeId}`);
+    }
 
     const fetchSingleCharacter = async () => {
         try {
@@ -68,11 +72,12 @@ const SingleCharacter: React.FC = () => {
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Episodes</dt>
-                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        <dd className="mt-1 cursor-pointer text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                             {character?.episode.map((episodeUrl, index) => (
                                 <span
+                                onClick={() => handleSingleEpisode(extractEpisodeNumber(episodeUrl))}
                                     key={index}
-                                    className="inline-block text-gray-600 mr-1"
+                                    className="inline-block text-gray-600 mr-1 underline decoration-sky-500"
                                 >
                                     {extractEpisodeNumber(episodeUrl)}
                                     {index !== character.episode.length - 1 && ','}
@@ -82,7 +87,7 @@ const SingleCharacter: React.FC = () => {
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Location</dt>
-                        <dd onClick={() => handleCharacterLocation(character?.location.url)} className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        <dd onClick={() => handleCharacterLocation(character?.location.url)} className="cursor-pointer underline decoration-sky-500 mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                             {character?.location.name}
                         </dd>
                     </div>

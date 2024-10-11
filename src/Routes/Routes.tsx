@@ -5,6 +5,7 @@ import SignUp from "../Pages/SignUpPage/SignUp";
 import Characters from "../Pages/CharactersPage/Characters";
 import SingleCharacter from "../Pages/SingleCharacterPage/SingleCharacter";
 import SingleLocation from "../Pages/SingleLocationPage/SingleLocation";
+import SingleEpisode from "../Pages/SingleEpisodePage/SingleEpisode";
 
 export const router = createBrowserRouter([
     {
@@ -24,12 +25,16 @@ export const router = createBrowserRouter([
                 element: <Characters />
             },
             {
-                path: 'single-character/:id',
+                path: 'characters/:id',
                 element: <SingleCharacter />
             },
             {
-                path: 'single-location/:id',
+                path: 'location/:id',
                 element: <SingleLocation />
+            },
+            {
+                path: 'episode/:id',
+                element: <SingleEpisode />
             },
         ]
     }

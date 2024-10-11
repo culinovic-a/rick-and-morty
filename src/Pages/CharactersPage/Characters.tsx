@@ -26,7 +26,7 @@ const Characters: React.FC = () => {
     const navigate = useNavigate();
 
     const handleCharacterClick = (characterId: number) => {
-        navigate(`/single-character/${characterId}`);
+        navigate(`/characters/${characterId}`);
     };
 
     const fetchCharacters = async (page: number) => {
@@ -94,7 +94,7 @@ const Characters: React.FC = () => {
                 />
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {characters.map((character) => (
-                        <div onClick={() => handleCharacterClick(character.id)} key={character.id} className="bg-white border border-gray-300 rounded-lg shadow p-4">
+                        <div onClick={() => handleCharacterClick(character.id)} key={character.id} className=" cursor-pointer bg-white border border-gray-300 rounded-lg shadow p-4">
                             <h2 className="mb-1 text-xl font-medium text-gray-900">{character.name}</h2> <span> {character.gender}, {character.status}, {character.species}</span>
                             <img src={character.image} alt={character.name} />
                             <div className="mt-2">
