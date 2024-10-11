@@ -38,6 +38,7 @@ const SingleCharacter: React.FC = () => {
     return (
         <div className="m-6 p-6 bg-gray-200">
             <div className="px-4 sm:px-0">
+                <h3 className='mb-10'>Single Character</h3>
                 <img src={character?.image} alt="" />
             </div>
             <div className="mt-6 border-t border-gray-100">
