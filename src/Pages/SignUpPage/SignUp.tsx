@@ -12,12 +12,9 @@ const SignUp: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(userCredential)
       const user = userCredential.user;
       const token = await user.getIdToken();
       login(token);

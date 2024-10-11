@@ -28,16 +28,15 @@ const SingleCharacter: React.FC = () => {
 
             const response = await axios.get<Character>(`${apiUrl}/character/${id}`);
             setCharacter(response.data);
-            console.log('single character', response.data)
 
         } catch (err) {
-            console.log(err)
+            console.error(err)
         }
     }
 
     useEffect(() => {
         fetchSingleCharacter()
-    }, [])
+    }, [fetchSingleCharacter])
 
     return (
         <div className="m-6 p-6 bg-gray-200">

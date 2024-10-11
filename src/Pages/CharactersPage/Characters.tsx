@@ -20,7 +20,6 @@ const Characters: React.FC = () => {
     const [characters, setCharacters] = useState<Character[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [info, setInfo] = useState<Info | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [hasMore, setHasMore] = useState<boolean>(true);
     const navigate = useNavigate();
@@ -41,7 +40,6 @@ const Characters: React.FC = () => {
 
             const response = await axios.get<ApiResponse>(`${apiUrl}/character?page=${page}`);
             setCharacters((prev) => [...prev, ...response.data.results]);
-            setInfo(response.data.info);
             setHasMore(!!response.data.info.next);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An error occurred');

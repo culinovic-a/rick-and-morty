@@ -24,16 +24,14 @@ const SingleEpisode: React.FC = () => {
 
             const response = await axios.get<Episode>(`${apiUrl}episode/${id}`);
             setEpisode(response.data);
-            console.log('single episode', response.data)
             const ids = extractURLids(response.data.characters);
-            console.log('single location', response.data)
 
             if (ids !== undefined) {
                 await fetchAllEpisodeCharacters(ids);
             }
 
         } catch (err) {
-            console.log(err)
+            console.error(err)
         }
     }
 
@@ -46,17 +44,16 @@ const SingleEpisode: React.FC = () => {
             }
 
             const response = await axios.get<Character[]>(`${apiUrl}character/${ids}`);
-            console.log('all characters', response.data)
             setLocationCharacters(response.data);
 
         } catch (err) {
-            console.log(err)
+            console.error(err)
         }
     }
 
     useEffect(() => {
         fetchSingleEpisode()
-    }, [])
+    }, [fetchSingleEpisode])
 
     return (
         <>

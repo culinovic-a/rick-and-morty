@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Character, Location } from '../../interfaces/interfaces';
 import axios from 'axios';
@@ -14,7 +14,23 @@ const SingleLocation: React.FC = () => {
         navigate(`/characters/${characterId}`);
     };
 
-    const fetchSingleLocation = async () => {
+    const fetchAllLocationCharacters = async (ids: string) => {
+        try {
+            const apiUrl = process.env.REACT_APP_API_URL;
+
+            if (!apiUrl) {
+                throw new Error('API URL err');
+            }
+
+            const response = await axios.get<Character[]>(`${apiUrl}character/${ids}`);
+            setLocationCharacters(response.data);
+
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const fetchSingleLocation = useCallback(async () => {
         try {
             const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -25,37 +41,19 @@ const SingleLocation: React.FC = () => {
             const response = await axios.get<Location>(`${apiUrl}location/${id}`);
             setSingleLocation(response.data);
             const ids = extractURLids(response.data.residents);
-            console.log('single location', response.data)
 
             if (ids !== undefined) {
                 await fetchAllLocationCharacters(ids);
             }
 
         } catch (err) {
-            console.log(err)
+            console.error(err);
         }
-    }
-
-    const fetchAllLocationCharacters = async (ids: string) => {
-        try {
-            const apiUrl = process.env.REACT_APP_API_URL;
-
-            if (!apiUrl) {
-                throw new Error('API URL err');
-            }
-
-            const response = await axios.get<Character[]>(`${apiUrl}character/${ids}`);
-            console.log('all characters', response.data)
-            setLocationCharacters(response.data);
-
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    }, [id, extractURLids, fetchAllLocationCharacters]);
 
     useEffect(() => {
         fetchSingleLocation()
-    }, [])
+    }, [fetchSingleLocation])
 
     return (
         <>
