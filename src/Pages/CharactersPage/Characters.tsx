@@ -1,20 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router';
 import { Character } from '../../interfaces/interfaces';
 import { extractEpisodeNumber } from '../../utils/extractEpisodeNumber';
-
-interface ApiResponse {
-    info: Info,
-    results: Array<Character>
-}
-
-interface Info {
-    count: number;
-    next: string | null;
-    prev: string | null;
-    pages: number;
-}
+import { ApiResponse } from '../../interfaces/interfaces';
+import { useCharacterNavigation } from '../../utils/useCharacterNavigation';
 
 const Characters: React.FC = () => {
     const [characters, setCharacters] = useState<Character[]>([]);
@@ -22,12 +11,8 @@ const Characters: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [hasMore, setHasMore] = useState<boolean>(true);
-    const navigate = useNavigate();
-
-    const handleCharacterClick = (characterId: number) => {
-        navigate(`/characters/${characterId}`);
-    };
-
+    const { handleCharacterClick } = useCharacterNavigation();
+    
     const fetchCharacters = async (page: number) => {
         if (loading) return;
         setLoading(true);
@@ -92,7 +77,7 @@ const Characters: React.FC = () => {
                 />
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {characters.map((character) => (
-                        <div onClick={() => handleCharacterClick(character.id)} key={character.id} className=" cursor-pointer bg-white border border-gray-300 rounded-lg shadow p-4">
+                        <div onClick={() => handleCharacterClick(character.id)} key={character.id} className="cursor-pointer bg-white border border-gray-300 rounded-lg shadow p-4">
                             <h2 className="mb-1 text-xl font-medium text-gray-900">{character.name}</h2> <span> {character.gender}, {character.status}, {character.species}</span>
                             <img src={character.image} alt={character.name} />
                             <div className="mt-2">
@@ -100,7 +85,7 @@ const Characters: React.FC = () => {
                                 {character.episode.map((episodeUrl, index) => (
                                     <span
                                         key={index}
-                                        className="inline-block text-gray-600 mr-1"
+                                        className="inline-flex items-center justify-center w-10 h-10 border border-gray-500 rounded-md bg-gray-200 text-center text-lg font-semibold m-2"
                                     >
                                         {extractEpisodeNumber(episodeUrl)}
                                         {index !== character.episode.length - 1 && ','}

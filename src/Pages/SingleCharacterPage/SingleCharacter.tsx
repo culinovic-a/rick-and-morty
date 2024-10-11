@@ -36,7 +36,7 @@ const SingleCharacter: React.FC = () => {
 
     useEffect(() => {
         fetchSingleCharacter()
-    }, [fetchSingleCharacter])
+    }, [])
 
     return (
         <div className="m-6 p-6 bg-gray-200">
@@ -71,12 +71,12 @@ const SingleCharacter: React.FC = () => {
                     </div>
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Episodes</dt>
-                        <dd className="mt-1 cursor-pointer text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                             {character?.episode.map((episodeUrl, index) => (
                                 <span
                                 onClick={() => handleSingleEpisode(extractEpisodeNumber(episodeUrl))}
                                     key={index}
-                                    className="inline-block text-gray-600 mr-1 underline decoration-sky-500"
+                                     className=" cursor-pointer inline-flex items-center justify-center w-10 h-10 border border-gray-500 rounded-md bg-gray-200 text-center text-lg font-semibold m-2"
                                 >
                                     {extractEpisodeNumber(episodeUrl)}
                                     {index !== character.episode.length - 1 && ','}

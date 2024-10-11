@@ -3,16 +3,14 @@ import { useNavigate, useParams } from 'react-router';
 import { Character, Location } from '../../interfaces/interfaces';
 import axios from 'axios';
 import { extractURLids } from '../../utils/extractURLids';
+import { useCharacterNavigation } from '../../utils/useCharacterNavigation';
 
 const SingleLocation: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [singleLocation, setSingleLocation] = useState<Location | undefined>();
     const [locationCharacters, setLocationCharacters] = useState<Character[]>([]);
     const navigate = useNavigate();
-
-    const handleCharacterClick = (characterId: number) => {
-        navigate(`/characters/${characterId}`);
-    };
+    const { handleCharacterClick } = useCharacterNavigation();
 
     const fetchAllLocationCharacters = async (ids: string) => {
         try {
@@ -53,7 +51,7 @@ const SingleLocation: React.FC = () => {
 
     useEffect(() => {
         fetchSingleLocation()
-    }, [fetchSingleLocation])
+    }, [])
 
     return (
         <>

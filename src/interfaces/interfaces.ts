@@ -37,4 +37,16 @@ export interface Episode {
     characters: string[];
     url: string;
     created: string;
-  }
+}
+
+export interface ApiResponse {
+    info: Info,
+    results: Array<Character>
+}
+
+export interface Info {
+    count: number;
+    next: string | null;
+    prev: string | null;
+    pages: number;
+}
