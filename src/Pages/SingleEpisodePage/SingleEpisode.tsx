@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Character, Episode } from '../../interfaces/interfaces';
 import { extractURLids } from '../../utils/extractURLids';
 import { useCharacterNavigation } from '../../utils/useCharacterNavigation';
+import { fetchAllCharactersBasedOnIds } from '../../utils/fetchAllCharactersBasedOnIds';
 
 const SingleEpisode: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [episode, setEpisode] = useState<Episode>();
-    const [locationCharacters, setLocationCharacters] = useState<Character[]>([]);
-    const navigate = useNavigate();
+    const [episodeCharacters, setEpisodeCharacters] = useState<Character[]>([]);
     const { handleCharacterClick } = useCharacterNavigation();
 
     const fetchSingleEpisode = async () => {
@@ -23,26 +23,8 @@ const SingleEpisode: React.FC = () => {
             const response = await axios.get<Episode>(`${apiUrl}episode/${id}`);
             setEpisode(response.data);
             const ids = extractURLids(response.data.characters);
-
-            if (ids !== undefined) {
-                await fetchAllEpisodeCharacters(ids);
-            }
-
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
-    const fetchAllEpisodeCharacters = async (ids: string) => {
-        try {
-            const apiUrl = process.env.REACT_APP_API_URL;
-
-            if (!apiUrl) {
-                throw new Error('API URL err');
-            }
-
-            const response = await axios.get<Character[]>(`${apiUrl}character/${ids}`);
-            setLocationCharacters(response.data);
+            const characters = await fetchAllCharactersBasedOnIds(ids);
+            setEpisodeCharacters(characters);
 
         } catch (err) {
             console.error(err)
@@ -76,7 +58,7 @@ const SingleEpisode: React.FC = () => {
                                 <dt className="text-sm font-medium leading-6 text-gray-900">Characters in this episode</dt>
 
                                 <dd className="cursor-pointer mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                                    {locationCharacters.map((character) => (
+                                    {episodeCharacters.map((character) => (
                                         <div className='mb-10 flex items-center underline decoration-sky-500' key={character.id} onClick={() => handleCharacterClick(character.id)}>
                                             <span className='mr-5'>
                                                 {character.name}

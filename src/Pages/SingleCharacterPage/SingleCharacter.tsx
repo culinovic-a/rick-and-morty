@@ -97,7 +97,5 @@ const SingleCharacter: React.FC = () => {
 };
 
 export default SingleCharacter;
-function setError(arg0: string) {
-    throw new Error('Function not implemented.');
-}
+
 

@@ -1,32 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { Character, Location } from '../../interfaces/interfaces';
 import axios from 'axios';
 import { extractURLids } from '../../utils/extractURLids';
 import { useCharacterNavigation } from '../../utils/useCharacterNavigation';
+import { fetchAllCharactersBasedOnIds } from '../../utils/fetchAllCharactersBasedOnIds';
 
 const SingleLocation: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [singleLocation, setSingleLocation] = useState<Location | undefined>();
     const [locationCharacters, setLocationCharacters] = useState<Character[]>([]);
-    const navigate = useNavigate();
     const { handleCharacterClick } = useCharacterNavigation();
-
-    const fetchAllLocationCharacters = async (ids: string) => {
-        try {
-            const apiUrl = process.env.REACT_APP_API_URL;
-
-            if (!apiUrl) {
-                throw new Error('API URL err');
-            }
-
-            const response = await axios.get<Character[]>(`${apiUrl}character/${ids}`);
-            setLocationCharacters(response.data);
-
-        } catch (err) {
-            console.error(err)
-        }
-    }
 
     const fetchSingleLocation = useCallback(async () => {
         try {
@@ -39,15 +23,13 @@ const SingleLocation: React.FC = () => {
             const response = await axios.get<Location>(`${apiUrl}location/${id}`);
             setSingleLocation(response.data);
             const ids = extractURLids(response.data.residents);
-
-            if (ids !== undefined) {
-                await fetchAllLocationCharacters(ids);
-            }
+            const characters = await fetchAllCharactersBasedOnIds(ids);
+            setLocationCharacters(characters);
 
         } catch (err) {
             console.error(err);
         }
-    }, [id, extractURLids, fetchAllLocationCharacters]);
+    }, []);
 
     useEffect(() => {
         fetchSingleLocation()

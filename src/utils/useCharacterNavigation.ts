@@ -1,4 +1,4 @@
-// utils/navigationUtils.ts
+
 import { useNavigate } from 'react-router-dom';
 
 export const useCharacterNavigation = () => {
