@@ -1,4 +1,4 @@
-# Rick and Morty Explorer
+# Rick and Morty
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -27,7 +27,7 @@ Clone the repository:
 
 Navigate to the Project Directory
 
-### `cd rick-and-morty-explorer`
+### `cd rick-and-morty`
 
 
 Install Dependencies
